@@ -11,7 +11,50 @@
  * 
  */
 char* readString(char* fileName){
-    //TODO: Replace this line with your code
+    int size = 0;
+    char *result = NULL;
+    const int MAX_SIZE = 1024;
+
+    FILE *pF = fopen(fileName, "r");
+    FILE *temppF = fopen("temp.txt", "w");
+
+    char buffer[MAX_SIZE];
+    int index = 0;
+
+    if(pF == NULL){
+        printf("Error reading file");
+    } else {
+        while(fgets(buffer, MAX_SIZE, pF)){
+            size += strlen(buffer);
+            if(index==0){
+                result = malloc(size+1);
+                result = strcpy(result, buffer);
+            }
+            index++;
+        }
+    }
+
+    FILE *pF2 = fopen(fileName, "r");
+    int index2 = 0;
+
+    if (pF2 == NULL) {
+        printf("Error reading file");
+    } else {
+        while (fgets(buffer, MAX_SIZE, pF2)) {
+            if (index2 != 0){
+                fprintf(temppF, buffer);
+            }
+            index2++;
+        }
+    }
+
+    fclose(pF);
+    fclose(temppF);
+    
+    remove(fileName);
+    rename("temp.txt", fileName);
+    
+    return result;
 }
 
 /*
@@ -29,5 +72,20 @@ char* readString(char* fileName){
  * 
  */
 char* mysteryExplode(const char* str){
-    //TODO: Replace this line with your code
+    int size = 0;
+    int index = 1;
+
+    for(int i = 0; i < strlen(str); i++){
+        size += index;
+        index++;
+    }
+
+    char *explosionString = NULL;
+    explosionString = malloc((strlen(str) * str[0])+1);
+
+    for(int i = 0; i < strlen(str); i++){
+        strncat(explosionString, str, i+1);
+    }
+
+    return explosionString;
 }
