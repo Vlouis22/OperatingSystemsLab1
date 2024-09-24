@@ -1,6 +1,6 @@
-all: main
+all: explode
 
-main: main.c lab1.o
+explode: main.c lab1.o
 	$(CC) -o main main.c lab1.o
 
 lab1.o: lab1.c
