@@ -12,26 +12,19 @@
  */
 char* readString(char* fileName){
     int size = 0;
-    char *result = NULL;
+    char *result = (char *) malloc(100 * sizeof(char));
     const int MAX_SIZE = 1024;
 
     FILE *pF = fopen(fileName, "r");
     FILE *temppF = fopen("temp.txt", "w");
 
     char buffer[MAX_SIZE];
-    int index = 0;
 
     if(pF == NULL){
         printf("Error reading file");
     } else {
-        while(fgets(buffer, MAX_SIZE, pF)){
-            size += strlen(buffer);
-            if(index==0){
-                result = malloc(size+1);
-                result = strcpy(result, buffer);
-            }
-            index++;
-        }
+        fgets(buffer, MAX_SIZE, pF);
+        result = strcpy(result, buffer);
     }
 
     FILE *pF2 = fopen(fileName, "r");
